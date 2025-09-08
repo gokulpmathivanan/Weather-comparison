@@ -31,8 +31,22 @@ def index():
         current_max = current_data['temperature_2m_max'][0]
         current_min = current_data['temperature_2m_min'][0]
 
+        #Historical data
+        last_year_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
+        historical_url = f"https://archive-api.open-meteo.com/v1/archive?latitude={latitude}&longitude={longitude}&start_date={last_year_date}&end_date={last_year_date}&daily=temperature_2m_max,temperature_2m_min&timezone=auto"
+        historical_response = requests.get(historical_url)
+        if historical_response.status_code != 200:
+            return render_template('index.html', error = "Error fetching historical weather")
+        
+        historical_data = historical_response.json()['daily']
+        historical_max = historical_data['temperature_2m_max'][0]
+        historical_min = historical_data['temperature_2m_min'][0]
 
-        return render_template('index.html', result = "Weather will appear here")
+        #Comparison
+        comparison = "Hotter" if current_max > historical_max else "Cooler" if current_max < historical_max else "similar"
+        result = f"Today in {city}: Max: {current_max}°C, Min {current_min}°C <br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C <br><br><br> It's <b>{comparison}</b> today!"
+
+        return render_template('index.html', result = result)
 
     return render_template('index.html')
 
