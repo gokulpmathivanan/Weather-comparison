@@ -1,7 +1,8 @@
 # Weather comparison (Work in Progress)
 
 A simple tool to know what the weather was like last year compared to the current date
-<img width="405" height="242" alt="image" src="https://github.com/user-attachments/assets/1b85a264-fa98-4041-b2c1-b2b4be186f80" />
+<img width="435" height="550" alt="image" src="https://github.com/user-attachments/assets/84bbe3c0-e908-434e-9b25-2c96cb595f94" />
+
 
 Check it out here: https://weather-comparison-z4uh.onrender.com/
 
