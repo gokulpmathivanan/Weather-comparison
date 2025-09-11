@@ -49,6 +49,26 @@ def index():
         historical_precip_sum = historical_data['precipitation_sum'][0]
         historical_precip_hours = historical_data['precipitation_hours'][0]
 
+        #7 day average
+        end_date= (datetime.now() - timedelta(days=365))
+        start_date= (end_date - timedelta(days=6)).strftime('%Y-%m-%d')
+        end_date=(datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
+        historical_url_7day = f"https://archive-api.open-meteo.com/v1/archive?latitude={latitude}&longitude={longitude}&start_date={start_date}&end_date={end_date}&daily=apparent_temperature_max,apparent_temperature_min,apparent_temperature_mean,precipitation_sum,precipitation_hours&timezone=auto"
+        historical_response_7day = requests.get(historical_url_7day)
+        if historical_response_7day.status_code != 200:
+            return render_template('index.html', error = "Error fetching historical weather")
+
+        historical_data_7day = historical_response_7day.json()['daily']
+
+        historical_7day_max = sum(historical_data_7day['apparent_temperature_max'])/len(historical_data_7day['apparent_temperature_max'])
+        historical_7day_max = round(historical_7day_max,1)
+        historical_7day_min = sum(historical_data_7day['apparent_temperature_min'])/len(historical_data_7day['apparent_temperature_min'])
+        historical_7day_min = round(historical_7day_min,1)
+        historical_7day_mean = sum(historical_data_7day['apparent_temperature_mean'])/len(historical_data_7day['apparent_temperature_mean'])
+        historical_7day_precip = sum(historical_data_7day['precipitation_sum'])/len(historical_data_7day['precipitation_sum'])
+        historical_7day_precip_hours = sum(historical_data_7day['precipitation_hours'])/len(historical_data_7day['precipitation_hours'])
+
+
         #Comparison
         comparison = "Hotter" if current_mean > historical_mean else "Cooler" if current_mean< historical_mean else "similar"
         result = f"""
@@ -67,6 +87,12 @@ def index():
                 <strong>Apparent Min:</strong> {historical_min}°C<br>
                 <strong>Apparent Mean:</strong> {historical_mean}°C<br>
                 <strong>Precipitation:</strong> {historical_precip_sum} mm in {historical_precip_hours} hours<br>
+            <h4 style='color: #555;padding: 0px 20px'> Average of last 7 days</h4>
+            <p style="padding: 0px 20px; font-size: 16px; line-height:1.5">
+                <strong>Apparent Max:</strong> {historical_7day_max}°C<br>
+                <strong>Apparent Min:</strong> {historical_7day_min}°C<br>
+                <strong>Apparent Mean:</strong> {historical_7day_mean}°C<br>
+                <strong>Precipitation:</strong> {historical_7day_precip} mm in {historical_7day_precip_hours} hours<br>
             </p>
             <p> It's <span style= 'font-weight: bold; color: #151E3D;'>{comparison}</span> today!</p>
         """

@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Weather Comparison</title>
 </head>
 <body>
+    <div class="weather-container">
     <h1>
         Weather Today vs Last Year
     </h1>
@@ -19,5 +21,7 @@
     {% if result %}
         <p>{{ result | safe }}</p>
     {% endif %}
+    </div>
+    
 </body>
 </html>
