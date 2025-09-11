@@ -29,8 +29,11 @@ def index():
             return render_template('index.html', error = "Error fetching current weather")
         
         current_data = forecast_response.json()['daily']
-        current_max = current_data['temperature_2m_max'][0]
-        current_min = current_data['temperature_2m_min'][0]
+        current_max = current_data['apparent_temperature_max'][0]
+        current_min = current_data['apparent_temperature_min'][0]
+        current_mean = current_data['apparent_temperature_mean'][0]
+        current_precip_sum = current_data['precipitation_sum'][0]
+        current_precip_hours = current_data['precipitation_hours'][0]
 
         #Historical data
         last_year_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
@@ -40,11 +43,14 @@ def index():
             return render_template('index.html', error = "Error fetching historical weather")
         
         historical_data = historical_response.json()['daily']
-        historical_max = historical_data['temperature_2m_max'][0]
-        historical_min = historical_data['temperature_2m_min'][0]
+        historical_max = historical_data['apparent_temperature_max'][0]
+        historical_min = historical_data['apparent_temperature_min'][0]
+        historical_mean = historical_data['apparent_temperature_mean'][0]
+        historical_precip_sum = historical_data['precipitation_sum'][0]
+        historical_precip_hours = historical_data['precipitation_hours'][0]
 
         #Comparison
-        comparison = "Hotter" if current_max > historical_max else "Cooler" if current_max < historical_max else "similar"
+        comparison = "Hotter" if current_mean > historical_mean else "Cooler" if current_mean< historical_mean else "similar"
         result = f"Today in {city}: Max: {current_max}°C, Min {current_min}°C <br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C <br><br><br> It's <b>{comparison}</b> today!"
 
         return render_template('index.html', result = result)
