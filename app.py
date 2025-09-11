@@ -51,7 +51,26 @@ def index():
 
         #Comparison
         comparison = "Hotter" if current_mean > historical_mean else "Cooler" if current_mean< historical_mean else "similar"
-        result = f"Today in {city}: Max: {current_max}°C, Min: {current_min}°C, Apparent Temperature (Mean): {current_mean}°C, There is expected to be {current_precip_sum}mm precipiation in {current_precip_hours} hours<br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C, Apparent Temperature (Mean): {historical_mean}°C, There is expected to be {historical_precip_sum}mm precipiation in {historical_precip_hours} hours<br><br><br> It's <b>{comparison}</b> today!"
+        result = f"""
+        <div style= 'font-family: Arial, sans-serif; max-width: 600pc; margin:auto; padding:20px;'>
+            <h2 style='color: #333;'> Weather in {city}:</h2>
+            <h3 style='color: #555;'> Today</h3>
+            <p style="padding: 0px 20px; line-height:1.5">
+                <strong>Apparent Max:</strong> {current_max}°C<br>
+                <strong>Apparent Min:</strong> {current_min}°C<br>
+                <strong>Apparent Mean:</strong> {current_mean}°C<br>
+                <strong>Expected precipitation:</strong> {current_precip_sum} mm in {current_precip_hours} hours<br>
+            </p>
+            <h3 style='color: #555;'> Same day Last year</h3>
+            <p style="padding: 0px 20px; font-size: 16px; line-height:1.5">
+                <strong>Apparent Max:</strong> {historical_max}°C<br>
+                <strong>Apparent Min:</strong> {historical_min}°C<br>
+                <strong>Apparent Mean:</strong> {historical_mean}°C<br>
+                <strong>Precipitation:</strong> {historical_precip_sum} mm in {historical_precip_hours} hours<br>
+            </p>
+            <p> It's <span style= 'font-weight: bold; color: #151E3D;'>{comparison}</span> today!</p>
+        """
+       #Today in {city}: Max: {current_max}°C, Min: {current_min}°C, Apparent Temperature (Mean): {current_mean}°C, There is expected to be {current_precip_sum} mm precipitation in {current_precip_hours} hours<br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C, Apparent Temperature (Mean): {historical_mean}°C, There was {historical_precip_sum} mm precipitation in {historical_precip_hours} hours<br><br><br> It's <b>{comparison}</b> today!
 
         return render_template('index.html', result = result)
 
