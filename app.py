@@ -51,7 +51,7 @@ def index():
 
         #Comparison
         comparison = "Hotter" if current_mean > historical_mean else "Cooler" if current_mean< historical_mean else "similar"
-        result = f"Today in {city}: Max: {current_max}°C, Min: {current_min}°C, Apparent Temperature (Mean): {current_mean}°C<br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C Apparent Temperature (Mean): {historical_mean}°C<br><br><br> It's <b>{comparison}</b> today!"
+        result = f"Today in {city}: Max: {current_max}°C, Min: {current_min}°C, Apparent Temperature (Mean): {current_mean}°C, There is expected to be {current_precip_sum}mm precipiation in {current_precip_hours} hours<br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C, Apparent Temperature (Mean): {historical_mean}°C, There is expected to be {historical_precip_sum}mm precipiation in {historical_precip_hours} hours<br><br><br> It's <b>{comparison}</b> today!"
 
         return render_template('index.html', result = result)
 
