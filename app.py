@@ -23,7 +23,7 @@ def index():
 
         #Forecast API
         today = datetime.now().strftime('%Y-%m-%d')
-        forecast_url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=temperature_2m_max,temperature_2m_min&timezone=auto&start_date={today}&end_date={today}"
+        forecast_url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=apparent_temperature_max,apparent_temperature_min,apparent_temperature_mean,precipitation_sum,precipitation_hours&timezone=auto&start_date={today}&end_date={today}"
         forecast_response = requests.get(forecast_url)
         if forecast_response.status_code != 200:
             return render_template('index.html', error = "Error fetching current weather")
@@ -37,7 +37,7 @@ def index():
 
         #Historical data
         last_year_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
-        historical_url = f"https://archive-api.open-meteo.com/v1/archive?latitude={latitude}&longitude={longitude}&start_date={last_year_date}&end_date={last_year_date}&daily=temperature_2m_max,temperature_2m_min&timezone=auto"
+        historical_url = f"https://archive-api.open-meteo.com/v1/archive?latitude={latitude}&longitude={longitude}&start_date={last_year_date}&end_date={last_year_date}&daily=apparent_temperature_max,apparent_temperature_min,apparent_temperature_mean,precipitation_sum,precipitation_hours&timezone=auto"
         historical_response = requests.get(historical_url)
         if historical_response.status_code != 200:
             return render_template('index.html', error = "Error fetching historical weather")
@@ -51,7 +51,7 @@ def index():
 
         #Comparison
         comparison = "Hotter" if current_mean > historical_mean else "Cooler" if current_mean< historical_mean else "similar"
-        result = f"Today in {city}: Max: {current_max}°C, Min {current_min}°C <br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C <br><br><br> It's <b>{comparison}</b> today!"
+        result = f"Today in {city}: Max: {current_max}°C, Min: {current_min}°C, Apparent Temperature (Mean): {current_mean}°C<br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C Apparent Temperature (Mean): {historical_mean}°C<br><br><br> It's <b>{comparison}</b> today!"
 
         return render_template('index.html', result = result)
 
