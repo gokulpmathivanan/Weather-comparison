@@ -65,36 +65,46 @@ def index():
         historical_7day_min = sum(historical_data_7day['apparent_temperature_min'])/len(historical_data_7day['apparent_temperature_min'])
         historical_7day_min = round(historical_7day_min,1)
         historical_7day_mean = sum(historical_data_7day['apparent_temperature_mean'])/len(historical_data_7day['apparent_temperature_mean'])
+        historical_7day_mean = round(historical_7day_mean,1)
         historical_7day_precip = sum(historical_data_7day['precipitation_sum'])/len(historical_data_7day['precipitation_sum'])
+        historical_7day_precip = round(historical_7day_precip,1)
         historical_7day_precip_hours = sum(historical_data_7day['precipitation_hours'])/len(historical_data_7day['precipitation_hours'])
-
+        historical_7day_precip_hours = round(historical_7day_precip_hours,1)
 
         #Comparison
         comparison = "Hotter" if current_mean > historical_mean else "Cooler" if current_mean< historical_mean else "similar"
         result = f"""
-        <div style= 'font-family: Arial, sans-serif; max-width: 600pc; margin:auto; padding:20px;'>
+        <div class= "weather-wrapper">
             <h2 style='color: #333;'> Weather in {city}:</h2>
-            <h3 style='color: #555;'> Today</h3>
-            <p style="padding: 0px 20px; line-height:1.5">
-                <strong>Apparent Max:</strong> {current_max}°C<br>
-                <strong>Apparent Min:</strong> {current_min}°C<br>
-                <strong>Apparent Mean:</strong> {current_mean}°C<br>
-                <strong>Expected precipitation:</strong> {current_precip_sum} mm in {current_precip_hours} hours<br>
-            </p>
-            <h3 style='color: #555;'> Same day Last year</h3>
-            <p style="padding: 0px 20px; font-size: 16px; line-height:1.5">
-                <strong>Apparent Max:</strong> {historical_max}°C<br>
-                <strong>Apparent Min:</strong> {historical_min}°C<br>
-                <strong>Apparent Mean:</strong> {historical_mean}°C<br>
-                <strong>Precipitation:</strong> {historical_precip_sum} mm in {historical_precip_hours} hours<br>
-            <h4 style='color: #555;padding: 0px 20px'> Average of last 7 days</h4>
-            <p style="padding: 0px 20px; font-size: 16px; line-height:1.5">
-                <strong>Apparent Max:</strong> {historical_7day_max}°C<br>
-                <strong>Apparent Min:</strong> {historical_7day_min}°C<br>
-                <strong>Apparent Mean:</strong> {historical_7day_mean}°C<br>
-                <strong>Precipitation:</strong> {historical_7day_precip} mm in {historical_7day_precip_hours} hours<br>
-            </p>
-            <p> It's <span style= 'font-weight: bold; color: #151E3D;'>{comparison}</span> today!</p>
+            <div class="weather-comparison">
+                <div class= "weather-historical">
+                    <h3 style='color: #555;'> Same day Last year</h3>
+                    <p style="padding: 0px 20px; font-size: 16px; line-height:1.5">
+                        <strong>Apparent Max:</strong> <br>{historical_max}°C<br><br>
+                        <strong>Apparent Min:</strong> <br>{historical_min}°C<br><br>
+                        <strong>Apparent Mean:</strong> <br>{historical_mean}°C<br><br>
+                        <strong>Precipitation:</strong> <br>{historical_precip_sum} mm in {historical_precip_hours} hours<br><br>
+                    <h4 style='color: #555;padding: 0px 20px'> Average of last 7 days</h4>
+                    <p style="padding: 0px 20px; font-size: 16px; line-height:1.5">
+                        <strong>Apparent Max:</strong> <br>{historical_7day_max}°C<br><br>
+                        <strong>Apparent Min:</strong> <br>{historical_7day_min}°C<br><br>
+                        <strong>Apparent Mean:</strong> <br> {historical_7day_mean}°C<br><br>
+                        <strong>Precipitation:</strong> <br>{historical_7day_precip} mm in {historical_7day_precip_hours} hours<br>
+                    </p>
+                </div>
+                <div class= "weather-today">
+                    <h3 style='color: #555;'> Today</h3>
+                    <p style="padding: 0px 20px; line-height:1.5">
+                        <strong>Apparent Max:</strong> <br>{current_max}°C<br><br>
+                        <strong>Apparent Min:</strong> <br>{current_min}°C<br><br>
+                        <strong>Apparent Mean:</strong> <br>{current_mean}°C<br><br>
+                        <strong>Expected precipitation:</strong> <br>{current_precip_sum} mm in {current_precip_hours} hours<br><br><br>
+                    </p>
+                    <p style= 'font-size:26px; text-align: center'> It's <span style= 'font-size: 28px; font-weight: bold; color: #151E3D;'>{comparison}</span> today!</p>
+
+                </div>
+            </div>
+        </div>
         """
        #Today in {city}: Max: {current_max}°C, Min: {current_min}°C, Apparent Temperature (Mean): {current_mean}°C, There is expected to be {current_precip_sum} mm precipitation in {current_precip_hours} hours<br><br> This day Last year: Max: {historical_max}°C, Min: {historical_min}°C, Apparent Temperature (Mean): {historical_mean}°C, There was {historical_precip_sum} mm precipitation in {historical_precip_hours} hours<br><br><br> It's <b>{comparison}</b> today!
 

@@ -3,9 +3,61 @@ body{
     background-size: cover;
 }
 
+.weather-wrapper{
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.weather-comparison{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.weather-today, .weather-historical{
+    flex: content;
+    min-width: 250px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.city-text{
+    font-size: medium;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.button{
+    background-image: url('/static/images/Gemini_Generated_Image_kivyjgkivyjgkivy-Photoroom.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    color: #332D56;
+    padding: 50px 55px;
+    font-size: 17px;
+    font-family: fantasy;
+    font-stretch: expanded;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease, opacity 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover{
+    transform: scale(1);
+    opacity: 0.9;
+}
+.button:active{
+    transform: scale(1);
+    opacity: 0.8;
+}
 .weather-container{
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
+    text-align: center;
 }
