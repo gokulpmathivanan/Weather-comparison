@@ -6,6 +6,8 @@ A simple tool to know what the weather was like last year compared to the curren
 
 Check it out here: https://weather-comparison-z4uh.onrender.com/
 
+Note: The website may take a while to load when opening for the first time (and thereafter if left unused for more than 15 minutes). This is a limitation of the free version of render.com
+
 ## How to run locally
 1. Clone the repo: `git clone https://github.com/gokulpmathivanan/Weather-comparison.git`
 2. Create a virtual environment: `python -m venv venv`
